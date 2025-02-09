@@ -10,6 +10,7 @@ STATE_GAME = "game"
 STATE_QUIT = "quit"
 STATE_OPTIONS = "options"
 STATE_WIN = "win"
+STATE_NEWGAME = "newgame"
 
 difficulty = ""
 
@@ -82,7 +83,13 @@ def main():
                                 start_time = pygame.time.get_ticks()
                             else:
                                 state = STATE_MENU
-
+        elif state == STATE_NEWGAME:
+            puzzle = generate_puzzle(difficulty)
+            solution = [row[:] for row in puzzle]
+            solve(solution)  # Solve the solution grid completely
+            grid = [row[:] for row in puzzle]
+            state = STATE_GAME  # Play
+            start_time = pygame.time.get_ticks()
         elif state == STATE_GAME:
             # Game State
             ui.draw_grid()
@@ -107,7 +114,7 @@ def main():
                         state = STATE_MENU
                     # Check if "New Game" button is clicked
                     if newGame_rect.collidepoint(mouse_pos):
-                        state = STATE_OPTIONS
+                        state = STATE_NEWGAME #zorro change STATE_OPTIONS to STATE_NEWGAME for "new game" without option change, and using old difficulty
 
                     # Check if a grid cell is clicked
                     row = (mouse_pos[1] - ui.GRID_TOP_MARGIN) // ui.CELL_SIZE
