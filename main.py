@@ -103,9 +103,58 @@ def main():
                 ui.highLight_cell(selected_cell)
 
             # Event handling for game
-            for event in pygame.event.get():
+            for event in pygame.event.get():	
+
+                # 获取键盘输入
+                keys = pygame.key.get_pressed()				
+			
                 if event.type == pygame.QUIT:
                     running = False
+                elif event.type == pygame.KEYDOWN:
+                    # Zorro: Add keydown of number support			
+                    print(f"Key '{pygame.key.name(event.key)}' pressed", event.key, pygame.K_1, pygame.K_9, pygame.K_KP1, pygame.K_KP9)	
+                    value = 0 					
+                    if keys[pygame.K_1] or keys[pygame.K_KP1]:
+                        value = 1
+                    elif keys[pygame.K_2] or keys[pygame.K_KP2]:
+                        value = 2
+                    elif keys[pygame.K_3] or keys[pygame.K_KP3]:
+                        value = 3
+                    elif keys[pygame.K_4] or keys[pygame.K_KP4]:
+                        value = 4
+                    elif keys[pygame.K_5] or keys[pygame.K_KP5]:
+                        value = 5
+                    elif keys[pygame.K_6] or keys[pygame.K_KP6]:
+                        value = 6
+                    elif keys[pygame.K_7] or keys[pygame.K_KP7]:
+                        value = 7
+                    elif keys[pygame.K_8] or keys[pygame.K_KP8]:
+                        value = 8
+                    elif keys[pygame.K_9] or keys[pygame.K_KP9]:
+                        value = 9
+                    if value>0:
+                        print ("selected_cell",selected_cell, "event.key",event.key,"key value", value)
+                        if selected_cell:
+                            row, col = selected_cell
+                            # Only allow updates on empty cells
+                            if puzzle[row][col] == 0 and is_valid(grid, row, col, value):
+                                grid[row][col] = value
+                                #zorro reserver the selected cell									
+                                #selected_cell = None  # Deselect cell after updating
+                                # Check if win game
+                                if(ui.didWin(grid,solution)):
+                                    state = STATE_WIN
+                    elif keys[pygame.K_DELETE]:
+                        print ("selected_cell",selected_cell, "event.key",event.key,"key value", value)
+                        if selected_cell:
+                            row, col = selected_cell
+                            # Only allow updates on empty cells
+                            if puzzle[row][col] == 0:
+                                grid[row][col] = 0							
+							
+                elif event.type == pygame.KEYUP:
+                    # Zorro: Add keydown of number support			
+                    #print(f"Key '{pygame.key.name(event.key)}' released")										
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     mouse_pos = pygame.mouse.get_pos()
 
@@ -130,7 +179,8 @@ def main():
                                 # Only allow updates on empty cells
                                 if puzzle[row][col] == 0 and is_valid(grid, row, col, value):
                                     grid[row][col] = value
-                                    selected_cell = None  # Deselect cell after updating
+                                    #zorro reserver the selected cell									
+                                    #selected_cell = None  # Deselect cell after updating
                                     # Check if win game
                                     if(ui.didWin(grid,solution)):
                                         state = STATE_WIN
