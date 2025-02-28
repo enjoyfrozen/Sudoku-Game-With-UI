@@ -261,6 +261,24 @@ def highLight_cell(selected_cell):
     highlight_surface.fill(highlight_color)
 
     screen.blit(highlight_surface, (cell_x, cell_y))
+	
+def mark_cell(selected_cell, bMark):
+    """Highlight a selected cell on the grid."""
+    (row,col) = selected_cell
+    cell_x = col * CELL_SIZE + GRID_LEFT_MARGIN
+    cell_y = row * CELL_SIZE + GRID_LEFT_MARGIN
+
+    # Draw a slightly thicker rectangle to highlight the cell
+    if bMark:
+        highlight_color = BLUE  # Semi-transparent blue #82 橙红色 #FF2400 #https://www.cnblogs.com/ybqjymy/p/18027171
+    else:
+        highlight_color = LIGHT_BLUE  # Semi-transparent blue #82 橙红色 #FF2400 #https://www.cnblogs.com/ybqjymy/p/18027171
+	
+    highlight_surface = pygame.Surface((CELL_SIZE,CELL_SIZE), pygame.SRCALPHA)
+    pygame.draw.rect(highlight_surface, highlight_color, (0, 0, CELL_SIZE, CELL_SIZE))
+    #highlight_surface.fill(highlight_color)
+
+    screen.blit(highlight_surface, (cell_x, cell_y))	
 
 def toggleDarkTheme(isWhiteThemed):
     """Toggles between white and dark theme"""

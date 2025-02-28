@@ -88,6 +88,7 @@ def main():
             solution = [row[:] for row in puzzle]
             solve(solution)  # Solve the solution grid completely
             grid = [row[:] for row in puzzle]
+            mark_grid = [row[:] for row in puzzle]
             state = STATE_GAME  # Play
             start_time = pygame.time.get_ticks()
         elif state == STATE_GAME:
@@ -112,7 +113,7 @@ def main():
                     running = False
                 elif event.type == pygame.KEYDOWN:
                     # Zorro: Add keydown of number support			
-                    print(f"Key '{pygame.key.name(event.key)}' pressed", event.key, pygame.K_1, pygame.K_9, pygame.K_KP1, pygame.K_KP9)	
+                    print(f"Key '{pygame.key.name(event.key)}' pressed", event.key)	
                     value = 0 					
                     if keys[pygame.K_1] or keys[pygame.K_KP1]:
                         value = 1
@@ -144,17 +145,58 @@ def main():
                                 # Check if win game
                                 if(ui.didWin(grid,solution)):
                                     state = STATE_WIN
-                    elif keys[pygame.K_DELETE]:
+                    elif keys[pygame.K_DELETE] or keys[pygame.K_BACKSPACE]:
                         print ("selected_cell",selected_cell, "event.key",event.key,"key value", value)
                         if selected_cell:
                             row, col = selected_cell
                             # Only allow updates on empty cells
                             if puzzle[row][col] == 0:
                                 grid[row][col] = 0							
-							
+                    elif keys[pygame.K_LEFT]:
+                        print ("selected_cell",selected_cell, "event.key",event.key,"key value", value)
+                        if selected_cell:
+                            row, col = selected_cell
+                            # Only allow updates on empty cells
+                            if col>0:
+                                selected_cell = (row, col-1)							
+                    elif keys[pygame.K_RIGHT]:
+                        print ("selected_cell",selected_cell, "event.key",event.key,"key value", value)
+                        if selected_cell:
+                            row, col = selected_cell
+                            # Only allow updates on empty cells
+                            if col< ui.GRID_SIZE-1:
+                                selected_cell = (row, col+1)							
+                    elif keys[pygame.K_UP]:
+                        print ("selected_cell",selected_cell, "event.key",event.key,"key value", value)
+                        if selected_cell:
+                            row, col = selected_cell
+                            # Only allow updates on empty cells
+                            if row>0:
+                                selected_cell = (row-1, col)							
+                    elif keys[pygame.K_DOWN]:
+                        print ("selected_cell",selected_cell, "event.key",event.key,"key value", value)
+                        if selected_cell:
+                            row, col = selected_cell
+                            # Only allow updates on empty cells
+                            if row<ui.GRID_SIZE-1:
+                                selected_cell = (row+1, col)							
+                    elif keys[pygame.K_SPACE]:
+                        print ("selected_cell",selected_cell, "event.key",event.key,"key value", value)
+                        if selected_cell:
+                            row, col = selected_cell
+                            # Only allow updates on empty cells
+                            if puzzle[row][col] == 0:
+                                print ("grid[row][col]", grid[row][col])
+                                if grid[row][col]:															
+                                    #mark_grid[row][col] = 0
+                                    ui.mark_cell(selected_cell, 1)									
+                                else:
+                                    #mark_grid[row][col] = 1
+                                    ui.mark_cell(selected_cell, 1)									
+								
                 elif event.type == pygame.KEYUP:
                     # Zorro: Add keydown of number support			
-                    #print(f"Key '{pygame.key.name(event.key)}' released")										
+                    print(f"Key '{pygame.key.name(event.key)}' released")										
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     mouse_pos = pygame.mouse.get_pos()
 
