@@ -1,8 +1,11 @@
+#Contribute from Serban-Mihail Cora, Zorro
+
 import pygame
 from sudoku import generate_puzzle, solve, is_valid
 import ui
 import menu as mn
 import os
+import record
 
 # States for the game
 STATE_MENU = "menu"
@@ -35,6 +38,8 @@ def main():
     running = True
     selected_cell = None
     isWhiteThemed = True
+    user_name = "zorro"
+    score = queryPlayer(user_name)
 
     while running:
         # Clear the screen
@@ -105,7 +110,7 @@ def main():
             # Game State
             ui.draw_grid()
             ui.draw_numbers(grid, puzzle)
-            ui.draw_header(start_time, difficulty)
+            ui.draw_header(start_time, difficulty, score)
             newGame_rect = ui.draw_newGame()
             keyPad_buttons = ui.draw_keypad()
             returnMenu_button = ui.draw_returnMenu()

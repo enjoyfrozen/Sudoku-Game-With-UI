@@ -1,3 +1,5 @@
+#Contribute from Serban-Mihail Cora, Zorro
+
 import pygame
 import os
 
@@ -114,7 +116,7 @@ def draw_numbers(grid, puzzle):
                 screen.blit(num, (text_x, text_y))
 
 
-def draw_header(start_time, difficulty):
+def draw_header(start_time, difficulty, score):
     """Draw the timer and the difficulty above the grid."""
     elapsed_time = (pygame.time.get_ticks() - start_time) // 1000
     minutes, seconds = divmod(elapsed_time, 60)
@@ -122,6 +124,9 @@ def draw_header(start_time, difficulty):
     # Render timer and difficulty separately
     timer_text = headerFont.render(f"Time: {minutes:02}:{seconds:02}", True, BLACK)
     difficulty_text = headerFont.render(f"Difficulty: {difficulty}", True, BLACK)
+    
+    #highest score
+    score_text = headerFont.render(f"Score: {score}", True, BLACK)
 
     # Fixed positions
     timer_x = GRID_LEFT_MARGIN  # Align to the left
@@ -335,3 +340,4 @@ def didWin(grid,solution):
             if(grid[row][col] != solution[row][col]):
                 return False
     return True
+    
