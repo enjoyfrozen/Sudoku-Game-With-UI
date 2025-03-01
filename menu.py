@@ -39,7 +39,7 @@ def draw_startButton():
 
 def draw_quitButton():
     # Draw Quit Button
-    quit_button = pygame.Rect((ui.WINDOW_WIDTH // 2 - BUTTON_WIDTH // 2, 300), (BUTTON_WIDTH, BUTTON_HEIGHT))
+    quit_button = pygame.Rect((ui.WINDOW_WIDTH // 2 - BUTTON_WIDTH // 2, 400), (BUTTON_WIDTH, BUTTON_HEIGHT))
     pygame.draw.rect(ui.screen, ui.LIGHT_BLUE, quit_button)
     quit_text = FONT.render("Quit", True, ui.BLACK)
     text_x = quit_button.x + BUTTON_WIDTH // 2 - quit_text.get_width() // 2
@@ -51,7 +51,7 @@ def draw_quitButton():
 
 def draw_themeButton(isWhiteThemed):
     # Draw Theme Button
-    theme_button = pygame.Rect((ui.WINDOW_WIDTH // 2 - BUTTON_WIDTH // 2, 400), (BUTTON_WIDTH, BUTTON_HEIGHT))
+    theme_button = pygame.Rect((ui.WINDOW_WIDTH // 2 - BUTTON_WIDTH // 2, 300), (BUTTON_WIDTH, BUTTON_HEIGHT))
     pygame.draw.rect(ui.screen, ui.LIGHT_BLUE, theme_button)
     theme_text = FONT.render("White Theme" if isWhiteThemed else "Dark Theme", True, ui.BLACK)
     text_x = theme_button.x + BUTTON_WIDTH // 2 - theme_text.get_width() // 2

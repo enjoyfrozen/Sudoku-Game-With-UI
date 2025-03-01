@@ -149,8 +149,9 @@ def draw_newGame():
 
     # Scale down and blit the button
     smooth_surface = pygame.transform.smoothscale(high_res_surface, (newgame_width, CELL_SIZE))
-    button_x = KEYPAD_LEFT_MARGIN
-    button_y = KEYPAD_BOTTOM_MARGIN - high_res_height / scale_factor
+    button_x = KEYPAD_RIGHT_MARGIN - KEYPAD_WIDTH // 2
+    button_y = KEYPAD_BOTTOM_MARGIN - high_res_height / scale_factor - CELL_SIZE - 10
+    
     screen.blit(smooth_surface, (button_x,button_y))
 
     # Draw "New Game" text
@@ -176,7 +177,7 @@ def draw_reset():
 
     # Scale down and blit the button
     smooth_surface = pygame.transform.smoothscale(high_res_surface, ((KEYPAD_WIDTH // 2.5), CELL_SIZE))
-    button_x = KEYPAD_RIGHT_MARGIN - KEYPAD_WIDTH // 2.5
+    button_x = KEYPAD_LEFT_MARGIN
     button_y = KEYPAD_BOTTOM_MARGIN - high_res_height / scale_factor
     screen.blit(smooth_surface, (button_x,button_y))
 
@@ -235,8 +236,8 @@ def draw_returnMenu():
 
     # Scale down and blit the button
     smooth_surface = pygame.transform.smoothscale(high_res_surface, ((KEYPAD_WIDTH // 2), CELL_SIZE))
-    button_x = KEYPAD_LEFT_MARGIN
-    button_y = KEYPAD_BOTTOM_MARGIN - high_res_height / scale_factor - CELL_SIZE - 10
+    button_x = KEYPAD_RIGHT_MARGIN - KEYPAD_WIDTH // 2
+    button_y = KEYPAD_BOTTOM_MARGIN - high_res_height / scale_factor
     screen.blit(smooth_surface, (button_x,button_y))
 
     # Draw "Main Menu" text
@@ -249,7 +250,7 @@ def draw_returnMenu():
     return pygame.Rect(button_x,button_y,(KEYPAD_WIDTH // 2),CELL_SIZE)
 
 def draw_clear():
-    """Draw a high-resolution 'Clear' button with smooth edges and return its rectangle."""
+    """Draw a high-resolution 'Erase' button with smooth edges and return its rectangle."""
     #Creating High Resolution Surface for round edges
     scale_factor = 4  # Scale up by 4x
     high_res_width = (KEYPAD_WIDTH // 2.5) * scale_factor
@@ -262,7 +263,7 @@ def draw_clear():
 
     # Scale down and blit the button
     smooth_surface = pygame.transform.smoothscale(high_res_surface, ((KEYPAD_WIDTH // 2.5), CELL_SIZE))
-    button_x = KEYPAD_RIGHT_MARGIN - KEYPAD_WIDTH // 2.5
+    button_x = KEYPAD_LEFT_MARGIN
     button_y = KEYPAD_BOTTOM_MARGIN - high_res_height / scale_factor - CELL_SIZE - 10
     screen.blit(smooth_surface, (button_x,button_y))
 
