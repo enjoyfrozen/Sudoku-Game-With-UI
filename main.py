@@ -11,6 +11,7 @@ STATE_QUIT = "quit"
 STATE_OPTIONS = "options"
 STATE_WIN = "win"
 STATE_NEWGAME = "newgame"
+STATE_RESETGAME = "reset"
 
 difficulty = ""
 
@@ -91,6 +92,15 @@ def main():
             mark_grid = [row[:] for row in puzzle]
             state = STATE_GAME  # Play
             start_time = pygame.time.get_ticks()
+        elif state == STATE_RESETGAME:
+            #reserver original difficulty and generated puzzle
+            #puzzle = generate_puzzle(difficulty)
+            solution = [row[:] for row in puzzle]
+            solve(solution)  # Solve the solution grid completely
+            grid = [row[:] for row in puzzle]
+            mark_grid = [row[:] for row in puzzle]
+            state = STATE_GAME  # Play
+            start_time = pygame.time.get_ticks()            
         elif state == STATE_GAME:
             # Game State
             ui.draw_grid()
@@ -100,6 +110,7 @@ def main():
             keyPad_buttons = ui.draw_keypad()
             returnMenu_button = ui.draw_returnMenu()
             clear_button = ui.draw_clear()
+            resetGame_button = ui.draw_reset()
             if selected_cell:
                 ui.highLight_cell(selected_cell)
 
@@ -204,9 +215,11 @@ def main():
                     if returnMenu_button.collidepoint(mouse_pos):
                         state = STATE_MENU
                     # Check if "New Game" button is clicked
-                    if newGame_rect.collidepoint(mouse_pos):
+                    elif newGame_rect.collidepoint(mouse_pos):
                         state = STATE_NEWGAME #zorro change STATE_OPTIONS to STATE_NEWGAME for "new game" without option change, and using old difficulty
-
+                    elif resetGame_button.collidepoint(mouse_pos):
+                        state = STATE_RESETGAME
+                        
                     # Check if a grid cell is clicked
                     row = (mouse_pos[1] - ui.GRID_TOP_MARGIN) // ui.CELL_SIZE
                     col = (mouse_pos[0] - ui.GRID_LEFT_MARGIN) // ui.CELL_SIZE

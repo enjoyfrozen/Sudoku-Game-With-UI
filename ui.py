@@ -137,8 +137,9 @@ def draw_header(start_time, difficulty):
 def draw_newGame():
     """Draw a high-resolution 'New Game' button with smooth edges and return its rectangle."""
     #Creating High Resolution Surface for round edges
+    newgame_width = (KEYPAD_WIDTH // 2)
     scale_factor = 4  # Scale up by 4x
-    high_res_width = KEYPAD_WIDTH * scale_factor
+    high_res_width = newgame_width * scale_factor
     high_res_height = CELL_SIZE * scale_factor
     high_res_surface = pygame.Surface((high_res_width, high_res_height), pygame.SRCALPHA)
 
@@ -147,20 +148,46 @@ def draw_newGame():
     pygame.draw.rect(high_res_surface, BLUE, (0, 0, high_res_width, high_res_height), border_radius=corner_radius)
 
     # Scale down and blit the button
-    smooth_surface = pygame.transform.smoothscale(high_res_surface, (KEYPAD_WIDTH, CELL_SIZE))
+    smooth_surface = pygame.transform.smoothscale(high_res_surface, (newgame_width, CELL_SIZE))
     button_x = KEYPAD_LEFT_MARGIN
     button_y = KEYPAD_BOTTOM_MARGIN - high_res_height / scale_factor
     screen.blit(smooth_surface, (button_x,button_y))
 
     # Draw "New Game" text
     newGame_text = newGameFont.render("New Game", True, WHITE)
-    text_x = button_x + KEYPAD_WIDTH // 2 - newGame_text.get_width() // 2
+    text_x = button_x + newgame_width // 2 - newGame_text.get_width() // 2
     text_y = button_y + CELL_SIZE // 2 - newGame_text.get_height() // 2
     screen.blit(newGame_text, (text_x, text_y))
 
     # Return the button rectangle for interaction
-    return pygame.Rect(button_x,button_y,KEYPAD_WIDTH,CELL_SIZE)
+    return pygame.Rect(button_x,button_y, newgame_width,CELL_SIZE)
 
+def draw_reset():
+    """Draw a high-resolution 'Reset' button with smooth edges and return its rectangle."""
+    #Creating High Resolution Surface for round edges
+    scale_factor = 4  # Scale up by 4x
+    high_res_width = (KEYPAD_WIDTH // 2.5) * scale_factor
+    high_res_height = CELL_SIZE * scale_factor
+    high_res_surface = pygame.Surface((high_res_width, high_res_height), pygame.SRCALPHA)
+
+    # Draw the high-resolution rounded rectangle
+    corner_radius = 20 * scale_factor
+    pygame.draw.rect(high_res_surface, BLUE, (0, 0, high_res_width, high_res_height), border_radius=corner_radius)
+
+    # Scale down and blit the button
+    smooth_surface = pygame.transform.smoothscale(high_res_surface, ((KEYPAD_WIDTH // 2.5), CELL_SIZE))
+    button_x = KEYPAD_RIGHT_MARGIN - KEYPAD_WIDTH // 2.5
+    button_y = KEYPAD_BOTTOM_MARGIN - high_res_height / scale_factor
+    screen.blit(smooth_surface, (button_x,button_y))
+
+    # Draw "Reset" text
+    clear_text = newGameFont.render("Reset", True, WHITE)
+    text_x = button_x + KEYPAD_WIDTH // 5 - clear_text.get_width() // 2
+    text_y = button_y + CELL_SIZE // 2 - clear_text.get_height() // 2
+    screen.blit(clear_text, (text_x, text_y))
+
+    # Return the button rectangle for interaction
+    return pygame.Rect(button_x,button_y,(KEYPAD_WIDTH // 2.5),CELL_SIZE)
 
 def draw_keypad():
     """Draws the keypad and returns a list of button rectangles with their values."""
@@ -212,7 +239,7 @@ def draw_returnMenu():
     button_y = KEYPAD_BOTTOM_MARGIN - high_res_height / scale_factor - CELL_SIZE - 10
     screen.blit(smooth_surface, (button_x,button_y))
 
-    # Draw "New Game" text
+    # Draw "Main Menu" text
     returnMenu_text = newGameFont.render("Main Menu", True, WHITE)
     text_x = button_x + KEYPAD_WIDTH // 4 - returnMenu_text.get_width() // 2
     text_y = button_y + CELL_SIZE // 2 - returnMenu_text.get_height() // 2
@@ -239,8 +266,8 @@ def draw_clear():
     button_y = KEYPAD_BOTTOM_MARGIN - high_res_height / scale_factor - CELL_SIZE - 10
     screen.blit(smooth_surface, (button_x,button_y))
 
-    # Draw "Clear" text
-    clear_text = newGameFont.render("Clear", True, WHITE)
+    # Draw "Erase" text
+    clear_text = newGameFont.render("Erase", True, WHITE)
     text_x = button_x + KEYPAD_WIDTH // 5 - clear_text.get_width() // 2
     text_y = button_y + CELL_SIZE // 2 - clear_text.get_height() // 2
     screen.blit(clear_text, (text_x, text_y))
