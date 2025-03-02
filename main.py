@@ -39,8 +39,9 @@ def main():
     selected_cell = None
     isWhiteThemed = True
     user_name = "zorro"
-    savePlayer(user_name, 100, 0)
-    score = queryPlayer(user_name )
+    user_score = 0
+    #savePlayer(user_name, 100, 0)
+    #user_score = queryPlayer(user_name )
 
     while running:
         # Clear the screen
@@ -111,7 +112,7 @@ def main():
             # Game State
             ui.draw_grid()
             ui.draw_numbers(grid, puzzle)
-            ui.draw_header(start_time, difficulty, score)
+            ui.draw_header(start_time, difficulty, user_score)
             newGame_rect = ui.draw_newGame()
             keyPad_buttons = ui.draw_keypad()
             returnMenu_button = ui.draw_returnMenu()

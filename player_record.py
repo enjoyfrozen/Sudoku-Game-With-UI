@@ -13,7 +13,7 @@ APP_ID = "royN65vTTmxskaiUFQpYsg9onPOvoyOgoHElyPy3"
 REST_KEY = "BtjFNg4nos4XsnqsgCTfINVdK7migDbpFVuKpc6a"    
 CLIENT_KEY="spXI8JzbtLdNUTuYNibHcjwH1r5NFkR4S7F8xrNn"
 
-BASE_URL = "https://parseapi.back4app.com/SoccerPlayers"
+BASE_URL = "https://parseapi.back4app.com/classes/SoccerPlayers"
 HEADERS = {
     "X-Parse-Application-Id": APP_ID,
     "X-Parse-REST-API-Key": REST_KEY,
@@ -44,32 +44,28 @@ HEADERS = {
         
 #another mode
 def queryPlayer(player_name):
-    headers = {
-        'X-Parse-Application-ID': APP_ID,
-        'X-Parse-REST-API-Key': REST_KEY,
-        "Content-Type": "application/json"
-    }
-    
-    response = requests.get('https://parseapi.back4app.com/parse/classes/player', headers=headers)
-    print(response.status_code, response.json())   
+    header = {
+        "X-Parse-Application-Id": APP_ID,
+        "X-Parse-REST-API-Key": REST_KEY
+    }    
+    object_id = "IWakGxYcTD"
+    url = BASE_URL+"/"+ object_id
+    response = requests.get(url, headers=header)
+    if (response.status_code == 200):
+        print(response.json())   
+    else:
+        print(response)       
     return 100
 
 def savePlayer(player_name, player_score, game_level=0):
-    data = {
-        "playerName": player_name,
-        "yearOfBirth": 1997,
-        "emailContact": "a.wed@email.io",
-        "score": player_score, 
-        "gameLevel": game_level,
-        "cheatMode": False}
-        
     payload = {
-        "title": player_name,
-        "player_score": player_score
-    }
+        "playerName": player_name,
+        "gameScore": player_score, 
+        "gameLevel": game_level,
+        "cheatMode": False}      
+
     print("HEADERS", HEADERS)
     print("BASE_URL", BASE_URL)
-    print("data", json.dumps(data))
     print("json", json.dumps(payload))
-    response = requests.put(BASE_URL, headers=HEADERS, json=json.dumps(payload))
+    response = requests.post(BASE_URL, headers=HEADERS, json=payload)
     print(response.status_code, response.json())       

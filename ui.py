@@ -3,6 +3,8 @@
 import pygame
 import os
 
+APP_VERSION = "V1.0.0"
+
 #Initialize Pygame
 pygame.init()
 
@@ -46,7 +48,7 @@ LIGHT_BLUE = (173, 216, 230)
 
 #Set up screen
 screen = pygame.display.set_mode((WINDOW_WIDTH,WINDOW_HEIGHT))
-pygame.display.set_caption("Sudoku")
+pygame.display.set_caption("Sudoku"+" "+APP_VERSION)
 
 #Set up fonts
 gridFont = pygame.font.Font(None,40)
@@ -141,7 +143,8 @@ def draw_header(start_time, difficulty, score):
     # Draw both texts at fixed positions
     screen.blit(timer_text, (timer_x, timer_y))  # Timer on the left
     screen.blit(difficulty_text, (difficulty_x, difficulty_y))  # Difficulty on the right
-    screen.blit(score_text, (score_x, score_y))  # Difficulty on the right
+    if score>0:
+        screen.blit(score_text, (score_x, score_y))  # Difficulty on the right
 
 
 def draw_newGame():
