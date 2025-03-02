@@ -1,3 +1,5 @@
+#Contribute from Serban-Mihail Cora, Zorro
+
 import random
 
 def solve(grid):
@@ -33,8 +35,10 @@ def is_valid(grid, row, col, num):
 def generate_puzzle(difficulty="easy"):
     """Generate a Sudoku puzzle."""
     grid = [[0] * 9 for _ in range(9)]
-    solve(grid)  # Fill the grid completely
-    clues = {"Easy": 40, "Medium": 30, "Hard": 20, "Extreme": 15}[difficulty]
+    bSolved = False
+    while not bSolved:
+        bSolved = solve(grid)  # Fill the grid completely
+    clues = {"Easy": 40, "Medium": 30, "Hard": 20, "Extreme": 10}[difficulty]
     remove_cells(grid, 81 - clues)
     return grid
 

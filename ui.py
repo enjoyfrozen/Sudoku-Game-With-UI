@@ -134,9 +134,14 @@ def draw_header(start_time, difficulty, score):
     difficulty_x = GRID_LEFT_MARGIN + GRID_WIDTH - difficulty_text.get_width()  # Align to the right
     difficulty_y = VERTICAL_PAD // 2 - difficulty_text.get_height() // 2
 
+    score_x = GRID_LEFT_MARGIN + ((GRID_WIDTH-score_text.get_width())//2) # Align to the Center
+    score_y = VERTICAL_PAD // 2 - score_text.get_height() // 2
+
+
     # Draw both texts at fixed positions
     screen.blit(timer_text, (timer_x, timer_y))  # Timer on the left
     screen.blit(difficulty_text, (difficulty_x, difficulty_y))  # Difficulty on the right
+    screen.blit(score_text, (score_x, score_y))  # Difficulty on the right
 
 
 def draw_newGame():

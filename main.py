@@ -5,7 +5,7 @@ from sudoku import generate_puzzle, solve, is_valid
 import ui
 import menu as mn
 import os
-import record
+from player_record import queryPlayer, savePlayer
 
 # States for the game
 STATE_MENU = "menu"
@@ -39,7 +39,8 @@ def main():
     selected_cell = None
     isWhiteThemed = True
     user_name = "zorro"
-    score = queryPlayer(user_name)
+    savePlayer(user_name, 100, 0)
+    score = queryPlayer(user_name )
 
     while running:
         # Clear the screen
